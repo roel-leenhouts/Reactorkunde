@@ -39,6 +39,16 @@ V = 2130.0       # L
 Vspan = np.linspace(0, V, 200)
 RR0   = 0.5
 
+# ------- KINETICS -------
+def reaction_rate(k, Ca, n=2):
+    pass
+
+def rate_constant(A, E, T):
+    pass
+
+def ODEfun_dXdV(X, V, P, T, E1, ya0, Fa0):
+    pass
+
 # ------- SOLVER -------
 def solve_system_PFR_single(P, T, A1, E1, ya0, Fa0, Vspan, initial_conditions, rate_constant_fn, reaction_rate_fn, ODEfun_dXdV_fn):
     X = odeint(ODEfun_dXdV_fn, np.array(initial_conditions), Vspan, (P, T, E1, ya0, Fa0))
