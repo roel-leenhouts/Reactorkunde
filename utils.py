@@ -157,7 +157,7 @@ def solve_series(
     k2 = rate_constant_fn(A2_param, E1 / Eratio, T)  # keep your E2 = E1/Eratio convention
     r1a = reaction_rate_fn(k1, Ca)          # A -> B (positive magnitude)
     r2b = reaction_rate_fn(k2, Cb)          # B -> C
-    ra  = r1a                               # consumption of A (positive magnitude)
+    ra  = r1a                             # consumption of A (positive magnitude)
     rb  = r1a - r2b                         # net for B
     rc  = r2b                               # formation of C
 
@@ -201,7 +201,7 @@ def draw_series(
     # Rates (plot -ra as positive magnitude for A)
     ax4.set_prop_cycle(cycler_op)
     ax4.plot(Vspan_param, -ra, Vspan_param, rb, Vspan_param, rc)
-    ax4.legend([r"$-r_A$", r"$r_B$", r"$r_C$"], loc="center left", bbox_to_anchor=(1.05, 0.5))
+    ax4.legend([r"$r_A$", r"$r_B$", r"$r_C$"], loc="center left", bbox_to_anchor=(1.05, 0.5))
     ax4.set_xlabel("V [L]", fontsize=fs); ax4.set_ylabel(r"Reaction Rate [mol/L·min]", fontsize=fs)
     ax4.hlines(0, 0, V_end, linestyles="--", colors="black")
     ax4.set_xlim(0, V_end)
