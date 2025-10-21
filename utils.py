@@ -40,22 +40,22 @@ Vspan = np.linspace(0, V, 200)
 RR0   = 0.5
 
 # ------- SOLVER -------
-def solve_system_PFR_single(P, T, A1, E1, ya0, Fa0, Vspan, initial_conditions):
-    X = odeint(ODEfun_dXdV, np.array(initial_conditions), Vspan, (P, T, E1, ya0, Fa0))
+def solve_system_PFR_single(P, T, A1, E1, ya0, Fa0, Vspan, initial_conditions, rate_constant_fn, reaction_rate_fn, ODEfun_dXdV_fn):
+    X = odeint(ODEfun_dXdV_fn, np.array(initial_conditions), Vspan, (P, T, E1, ya0, Fa0))
     Cto = P * 1e5 / (R * T) / 1000
     Cao = ya0 * Cto
     epsilon = ya0 * (1 + 1 - 1)
-    k = rate_constant(A1, E1, T)
+    k = rate_constant_fn(A1, E1, T)
     Ca = Cao * (1 - X) / (1 + epsilon * X)
-    ra = -reaction_rate(k, Ca)
+    ra = -reaction_rate_fn(k, Ca)
     Cb = Cao * X / (1 + epsilon * X)
     Cc = Cb
     return X, Ca, Cb, Cc, ra
 
 # ------- DRAW (re-draws entire figure each time; works with inline) -------
-def draw_single(Fa0, E1, T, ya0):
+def draw_single(Fa0, E1, T, ya0, rate_constant_fn=rate_constant, reaction_rate_fn=reaction_rate, ODEfun_dXdV_fn=ODEfun_dXdV):
     X, Ca, Cb, Cc, ra = solve_system_PFR_single(
-        P=P, T=T, A1=A1, E1=E1, ya0=ya0, Fa0=Fa0, Vspan=Vspan, initial_conditions=(0.0,)
+        P=P, T=T, A1=A1, E1=E1, ya0=ya0, Fa0=Fa0, Vspan=Vspan, initial_conditions, rate_constant_fn=rate_constant, reaction_rate_fn=reaction_rate, ODEfun_dXdV_fn=ODEfun_dXdV
     )
 
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(8, 4.5))
