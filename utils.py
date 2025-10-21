@@ -55,7 +55,7 @@ def solve_system_PFR_single(P, T, A1, E1, ya0, Fa0, Vspan, initial_conditions, r
 # ------- DRAW (re-draws entire figure each time; works with inline) -------
 def draw_single(Fa0, E1, T, ya0, rate_constant_fn=rate_constant, reaction_rate_fn=reaction_rate, ODEfun_dXdV_fn=ODEfun_dXdV):
     X, Ca, Cb, Cc, ra = solve_system_PFR_single(
-        P=P, T=T, A1=A1, E1=E1, ya0=ya0, Fa0=Fa0, Vspan=Vspan, initial_conditions=None, rate_constant_fn=rate_constant, reaction_rate_fn=reaction_rate, ODEfun_dXdV_fn=ODEfun_dXdV
+        P=P, T=T, A1=A1, E1=E1, ya0=ya0, Fa0=Fa0, Vspan=Vspan, initial_conditions=(1.0,), rate_constant_fn=rate_constant, reaction_rate_fn=reaction_rate, ODEfun_dXdV_fn=ODEfun_dXdV
     )
 
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(8, 4.5))
