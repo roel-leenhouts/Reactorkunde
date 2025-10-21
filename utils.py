@@ -210,7 +210,7 @@ def draw_series(
     plt.show()
 
 
- def draw_recycle(
+def draw_recycle(
     ya0, T, Eratio, Fa0, E1, RR,
     solve_recycle_fn,                  # <-- injected from notebook
     A1_param=A1, A2_param=A2, P_param=P, Vspan_param=Vspan
