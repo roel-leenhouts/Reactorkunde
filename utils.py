@@ -25,6 +25,20 @@ cycler_op = (
 
 np.seterr(divide='ignore', invalid='ignore')
 
+# ---- Constants / Defaults ----
+R = 8.314  # J/mol/K
+P = 6      # bar
+T0 = 1100  # K
+ya0_0 = 1.0 # feed fraction A (default)
+Fa0_0 = 193.0    # mol/min
+A1 = 1.1034e6    # L/(mol·min)
+A2 = A1
+E1_0 = 80000.0   # J/mol
+Eratio0 = np.exp(-0.4)
+V = 2130.0       # L
+Vspan = np.linspace(0, V, 200)
+RR0   = 0.5
+
 # ------- SOLVER -------
 def solve_system_PFR_single(P, T, A1, E1, ya0, Fa0, Vspan, initial_conditions):
     X = odeint(ODEfun_dXdV, np.array(initial_conditions), Vspan, (P, T, E1, ya0, Fa0))
