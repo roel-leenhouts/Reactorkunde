@@ -246,7 +246,7 @@ def draw_recycle(
     # Rates
     ax4.set_prop_cycle(cycler_op)
     ax4.plot(Vspan_param, -ra, Vspan_param, rb, Vspan_param, rc)
-    ax4.legend([r"$-r_A$", r"$r_B$", r"$r_C$"], loc="center left", bbox_to_anchor=(1.05,0.5))
+    ax4.legend([r"$r_A$", r"$r_B$", r"$r_C$"], loc="center left", bbox_to_anchor=(1.05,0.5))
     ax4.set_xlabel("V [L]", fontsize=fs); ax4.set_ylabel(r"Reaction Rate [mol/L·min]", fontsize=fs)
     ax4.hlines(0,0,V_end, linestyles="--", colors="black")
     ax4.set_xlim(0,V_end)
