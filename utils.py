@@ -210,5 +210,47 @@ def draw_series(
     plt.show()
 
 
-def draw_recycle(*args, **kwargs):
-    raise NotImplementedError("draw_recycle is not implemented in this version of utils.py")
+ def draw_recycle(
+    ya0, T, Eratio, Fa0, E1, RR,
+    solve_recycle_fn,                  # <-- injected from notebook
+    A1_param=A1, A2_param=A2, P_param=P, Vspan_param=Vspan
+):
+    """
+    draw_recycle just calls the provided `solve_recycle_fn` and plots the results.
+    The solver lives in the notebook (students can see/edit it).
+    """
+    (Y, Ca, Cb, Cc, X_A, Y_B, ra, rb, rc) = solve_recycle_fn(
+        P=P_param, T=T, E1=E1, Eratio=Eratio, ya0=ya0,
+        Fa0=Fa0, RR=RR, Vspan=Vspan_param
+    )
+
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(8,4.5))
+    fs=10; V_end=Vspan_param[-1]
+    ax1.axis("off")
+
+    # Conversion & Yield
+    ax2.set_prop_cycle(cycler_op)
+    ax2.plot(Vspan_param, X_A, Vspan_param, Y_B)
+    ax2.legend([r"$X_{A,end}$" + f"\n= {np.round(float(X_A[-1]),2)}", r"$Y_B$"],
+               loc="center left", bbox_to_anchor=(1.05,0.5))
+    ax2.set_xlabel("V [L]", fontsize=fs); ax2.set_ylabel("Conversion and yield [-]", fontsize=fs)
+    ax2.set_ylim(0,1); ax2.set_xlim(0,V_end)
+
+    # Concentrations
+    ax3.set_prop_cycle(cycler_op)
+    ax3.plot(Vspan_param, Ca, Vspan_param, Cb, Vspan_param, Cc)
+    ax3.legend([r"$C_A$", r"$C_B$", r"$C_C$"], loc="center left", bbox_to_anchor=(1.05,0.5))
+    ax3.set_xlabel("V [L]", fontsize=fs); ax3.set_ylabel("Concentration [mol/L]", fontsize=fs)
+    ax3.set_xlim(0,V_end)
+
+    # Rates
+    ax4.set_prop_cycle(cycler_op)
+    ax4.plot(Vspan_param, -ra, Vspan_param, rb, Vspan_param, rc)
+    ax4.legend([r"$-r_A$", r"$r_B$", r"$r_C$"], loc="center left", bbox_to_anchor=(1.05,0.5))
+    ax4.set_xlabel("V [L]", fontsize=fs); ax4.set_ylabel(r"Reaction Rate [mol/L·min]", fontsize=fs)
+    ax4.hlines(0,0,V_end, linestyles="--", colors="black")
+    ax4.set_xlim(0,V_end)
+
+    plt.tight_layout(h_pad=H_PAD)
+    plt.show()
+
