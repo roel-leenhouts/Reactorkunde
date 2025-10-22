@@ -178,7 +178,7 @@ def draw_series(
         rate_constant_fn=rate_constant_fn,
         reaction_rate_fn=reaction_rate_fn,
         ODEfun_dFdV_fn=ODEfun_dFdV_fn,
-        initial_conditions=initial_conditions
+        initial_conditions=initial_conditions,
         A1_param=A1_param, A2_param=A2_param
     )
 
