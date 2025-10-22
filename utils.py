@@ -129,7 +129,7 @@ def draw_single(
 
 def solve_series(
     P, T, E1, Eratio, ya0, Fa0, Vspan,
-    rate_constant_fn, reaction_rate_fn, ODEfun_dFdV_fn, initial_conditions
+    rate_constant_fn, reaction_rate_fn, ODEfun_dFdV_fn, initial_conditions,
     A1_param=A1, A2_param=A2
 ):
     """
