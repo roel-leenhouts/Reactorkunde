@@ -170,7 +170,7 @@ def draw_series(
     rate_constant_fn,
     reaction_rate_fn,
     ODEfun_dFdV_fn,
-    intitial_conditions,
+    initial_conditions,
     A1_param=A1, A2_param=A2, P_param=P, Vspan_param=Vspan
 ):
     (Y, Ca, Cb, Cc, X_A, Y_B, ra, rb, rc) = solve_series(
