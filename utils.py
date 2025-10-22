@@ -129,7 +129,7 @@ def draw_single(
 
 def solve_series(
     P, T, E1, Eratio, ya0, Fa0, Vspan,
-    rate_constant_fn, reaction_rate_fn, ODEfun_dFdV_fn,
+    rate_constant_fn, reaction_rate_fn, ODEfun_dFdV_fn, initial_conditions
     A1_param=A1, A2_param=A2
 ):
     """
@@ -139,7 +139,7 @@ def solve_series(
     ODEfun_dFdV_fn must accept: (Y, V, P, T, E1, Eratio, ya0, Fa0)
     and can use the student rate laws internally.
     """
-    y0 = np.array([Fa0, 0.0, 0.0])  # inlet fresh only
+    y0 = np.array(initial_conditions)  # inlet fresh only
     Y = odeint(ODEfun_dFdV_fn, y0, Vspan, (P, T, E1, Eratio, ya0, Fa0))
     Fa, Fb, Fc = Y.T
 
@@ -158,7 +158,7 @@ def solve_series(
     k2 = rate_constant_fn(A2_param, E1 / Eratio, T)  # keep your E2 = E1/Eratio convention
     r1a = reaction_rate_fn(k1, Ca)          # A -> B (positive magnitude)
     r2b = reaction_rate_fn(k2, Cb)          # B -> C
-    ra  = r1a                             # consumption of A (positive magnitude)
+    ra  = r1a                               # consumption of A (positive magnitude)
     rb  = r1a - r2b                         # net for B
     rc  = r2b                               # formation of C
 
@@ -170,6 +170,7 @@ def draw_series(
     rate_constant_fn,
     reaction_rate_fn,
     ODEfun_dFdV_fn,
+    intitial_conditions,
     A1_param=A1, A2_param=A2, P_param=P, Vspan_param=Vspan
 ):
     (Y, Ca, Cb, Cc, X_A, Y_B, ra, rb, rc) = solve_series(
@@ -177,6 +178,7 @@ def draw_series(
         rate_constant_fn=rate_constant_fn,
         reaction_rate_fn=reaction_rate_fn,
         ODEfun_dFdV_fn=ODEfun_dFdV_fn,
+        initial_conditions=initial_conditions
         A1_param=A1_param, A2_param=A2_param
     )
 
