@@ -77,6 +77,7 @@ def draw_single(
     rate_constant_fn,
     reaction_rate_fn,
     ODEfun_dXdV_fn,
+    initial_conditions,
     A1_param=A1, P_param=P, Vspan_param=Vspan
 ):
     """
@@ -85,7 +86,7 @@ def draw_single(
     """
     X, Ca, Cb, Cc, ra = solve_system_PFR_single(
         P=P_param, T=T, A1=A1_param, E1=E1, ya0=ya0, Fa0=Fa0, Vspan=Vspan_param,
-        initial_conditions=(0.0,),                       # X_A(0) = 0
+        initial_conditions=initial_conditions,
         rate_constant_fn=rate_constant_fn,
         reaction_rate_fn=reaction_rate_fn,
         ODEfun_dXdV_fn=ODEfun_dXdV_fn
